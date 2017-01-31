@@ -596,6 +596,12 @@ class StringStyleTests: XCTestCase {
 
         let childString = parentString.styled(with: childStyle)
         let attributes = childString.attributes(at: 0, effectiveRange: nil)
+        if let font = attributes[NSFontAttributeName] as? BONFont {
+            BONAssertEqualFonts(font, BONFont.fontA)
+        }
+        else {
+            XCTFail("Font should not be nil")
+        }
         BONAssert(attributes: attributes, key: NSForegroundColorAttributeName, value: BONColor.colorB)
     }
 
