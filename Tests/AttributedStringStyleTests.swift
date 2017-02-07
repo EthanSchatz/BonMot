@@ -587,22 +587,22 @@ class StringStyleTests: XCTestCase {
         BONAssertEqualFonts(parentStyle.font!, .fontA)
         XCTAssertEqual(parentStyle.color, .colorA)
 
-        let parentString = "foo".styled(with: parentStyle)
+        let parentAttributedString = "foo".styled(with: parentStyle)
 
         let childStyle = parentStyle.byAdding(.color(.colorB))
 
         BONAssertEqualFonts(childStyle.font!, .fontA)
         XCTAssertEqual(childStyle.color, .colorB)
 
-        let childString = parentString.styled(with: childStyle)
-        let attributes = childString.attributes(at: 0, effectiveRange: nil)
-        if let font = attributes[NSFontAttributeName] as? BONFont {
+        let childAttributedString = parentAttributedString.styled(with: childStyle)
+        let childAttributes = childAttributedString.attributes(at: 0, effectiveRange: nil)
+        if let font = childAttributes[NSFontAttributeName] as? BONFont {
             BONAssertEqualFonts(font, BONFont.fontA)
         }
         else {
             XCTFail("Font should not be nil")
         }
-        BONAssert(attributes: attributes, key: NSForegroundColorAttributeName, value: BONColor.colorB)
+        BONAssert(attributes: childAttributes, key: NSForegroundColorAttributeName, value: BONColor.colorB)
     }
 
 }
